@@ -487,7 +487,7 @@ int NodeImpl::init(const NodeOptions& options) {
                    << " Node can't started from IP_ANY";
         return -1;
     }
-
+    // 检查brpc是否启动
     if (!global_node_manager->server_exists(_server_id.addr)) {
         LOG(ERROR) << "Group " << _group_id
                    << " No RPC Server attached to " << _server_id.addr
@@ -501,7 +501,7 @@ int NodeImpl::init(const NodeOptions& options) {
     CHECK_EQ(0, _snapshot_timer.init(this, options.snapshot_interval_s * 1000));
 
     _config_manager = new ConfigurationManager();
-
+    // 创建apply执行队列
     if (bthread::execution_queue_start(&_apply_queue_id, NULL,
                                        execute_applying_tasks, this) != 0) {
         LOG(ERROR) << "node " << _group_id << ":" << _server_id 
@@ -536,7 +536,7 @@ int NodeImpl::init(const NodeOptions& options) {
     }
 
     // commitment manager init
-    _ballot_box = new BallotBox();
+    _ballot_box = new BallotBox(); // 选票箱
     BallotBoxOptions ballot_box_options;
     ballot_box_options.waiter = _fsm_caller;
     ballot_box_options.closure_queue = _closure_queue;

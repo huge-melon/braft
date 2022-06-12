@@ -85,7 +85,7 @@ void global_init_once_or_die() {
         exit(-1);
     }
 }
-
+// add_service将braft的业务逻辑添加到brpc server中
 int add_service(brpc::Server* server, const butil::EndPoint& listen_addr) {
     global_init_once_or_die();
     return global_node_manager->add_service(server, listen_addr);
@@ -321,7 +321,7 @@ BootstrapOptions::BootstrapOptions()
     , usercode_in_pthread(false)
 {}
 
-int bootstrap(const BootstrapOptions& options) {
+int bootstrap(const BootstrapOptions& options) { // 目前除了在test中，没有发现相关调用
     global_init_once_or_die();
     NodeImpl* node = new NodeImpl();
     const int rc = node->bootstrap(options);

@@ -74,7 +74,7 @@ static void* sender(void* arg) {
         request.set_expected_value(value);
         request.set_new_value(value + 1);
 
-        stub.compare_exchange(&cntl, &request, &response, NULL);
+        stub.compare_exchange(&cntl, &request, &response, NULL); // 对于client来说，首先要获取leader，之后向leader发起brpc请求即可
 
         if (cntl.Failed()) {
             LOG(WARNING) << "Fail to send request to " << leader

@@ -4,6 +4,9 @@ project(braft C CXX)
 SET(CPACK_GENERATOR "DEB")
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "braft authors") #required
 
+SET(CMAKE_INCLUDE_PATH "/root/mypro/incubator-brpc/src")
+SET(CMAKE_LIBRARY_PATH "/root/mypro/incubator-brpc")
+
 INCLUDE(CPack)
 
 #option(EXAMPLE_LINK_SO "Whether examples are linked dynamically" OFF)
